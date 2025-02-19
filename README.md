@@ -4,9 +4,9 @@
 
 
 // desc
-https://github.com/nuysoft/Mock/wiki/Getting-Started
+- https://github.com/nuysoft/Mock/wiki/Getting-Started
 
 
-// run
-create mock:  node mock.js
-json server:  npx json-server db.json
+// command
+- create mock:  node mock.js
+- json server:  npx json-server db.json
