@@ -8,25 +8,25 @@ var feeds = Mock.mock({
         'label': '@ctitle(1, 3)',
         'topic': {
             'id|+1': 1,
-            'name': '@ctitle(5, 10)'
+            'name': '#@ctitle(5, 10)#'
         },
         'content': '@cparagraph(5, 10)',
         'image|1-9': [
             '@image(200x200)'
         ],
-        'type|1': ['text', 'image', 'video'],
+        'isrecommend|1': [1, 0],
+        'type|1': ['text', 'longtext', 'feed', 'image', 'video'],
         'userInfo': {
             'avatar': '@image(50x50)',
             'name': '@cname',
-            'nameColor': '#000000',
-            'achievements|1-3': [
-                '@ctitle(3, 5)'
-            ],
+            'nameColor': '@color',
+            'avatarFrame': '@image(50x50)',
+            'userLevel': '@integer(1, 10)',
             'desc': '@ctitle(5, 10)',
             'badge': '@ctitle(2, 4)',
             'verified|1': [1, 0],
             'sex|1': [1, 0],
-            'online|1': [1, 0],
+            'online|1': [0,1,2,3],
             'followed|1': [1, 0]
         },
         'date': '@date("yyyy-MM-dd")',
@@ -37,7 +37,7 @@ var feeds = Mock.mock({
             'content': '@cparagraph(1, 2)',
             'user': {
                 'avatar': '@image(50x50)',
-                'nickname': '@cname'
+                'name': '@cname'
             },
             'date': '@datetime("yyyy-MM-dd HH:mm:ss")'
         }
@@ -46,10 +46,7 @@ var feeds = Mock.mock({
         'userInfo': {
             'avatar': '@image(50x50)',
             'name': '@cname',
-            'nameColor': '#000000',
-            'achievements|1-3': [
-                '@ctitle(3, 5)'
-            ],
+            'nameColor': '@color',
             'desc': '@ctitle(5, 10)',
             'badge': '@ctitle(2, 4)',
             'verified|1': [1, 0],
@@ -62,18 +59,26 @@ var feeds = Mock.mock({
             {
                 'user': {
                     'avatar': '@image(50x50)',
-                    'nickname': '@cname'
+                    'name': '@cname'
                 },
                 'content': '@cparagraph(1, 2)',
                 'image|0-1': '@image(100x100)',
             }
         ],
         'date': '@datetime("yyyy-MM-dd HH:mm:ss")',
-        'location': '@city(true)',
+        'location': '@city',
         'likeCount|1-20': 1,
         'replyCount|1-10': 1
     }]
 });
+
+var topic = Mock.mock({
+    'id|+1': 1,
+    'name': '#@ctitle(5, 10)#',
+    'desc': '@cparagraph(10, 15)',
+    'image': '@image(200x500)',
+    feeds
+})
 
 // 输出结果
 // console.log(JSON.stringify(data, null, 4))
@@ -88,15 +93,15 @@ http.createServer(function (req, res) {
         // 动态列表
         res.writeHead(200, { 'Content-Type': 'application/json; charset=utf-8' })
         res.end(JSON.stringify(feeds, null, 4))
-    } else if (url === '/feedDetail' && method === 'GET') {
+    } else if (url === '/topic' && method === 'GET') {
         // 动态详情
         res.writeHead(200, { 'Content-Type': 'application/json; charset=utf-8' })
-        res.end(JSON.stringify(feeds, null, 4))
+        res.end(JSON.stringify(topic, null, 4))
     } else {
         res.writeHead(404, { 'Content-Type': 'text/plain' });
         res.end('404 Not Found');
     }
-}).listen(3000)
+}).listen(3001)
 
 
 // 动态生成数据

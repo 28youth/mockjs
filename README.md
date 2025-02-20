@@ -11,3 +11,8 @@
 ### 命令
 - node mock.js
 - npx json-server db.json
+
+### 静态文件
+
+- ./public/
+- http://localhost:3000/avatar/xxx.jpg
